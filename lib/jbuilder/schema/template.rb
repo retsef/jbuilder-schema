@@ -24,9 +24,9 @@ class Jbuilder::Schema
       end
     end
 
-    class Configuration < ::Struct.new(:object, :title, :description, keyword_init: true)
-      def self.build(object: nil, object_title: nil, object_description: nil, **)
-        new(object: object, title: object_title, description: object_description)
+    class Configuration < ::Struct.new(:object, :title, :description, :scope, keyword_init: true)
+      def self.build(object: nil, object_title: nil, object_description: nil, object_scope: nil, **)
+        new(object: object, title: object_title, description: object_description, scope: object_scope)
       end
 
       def title

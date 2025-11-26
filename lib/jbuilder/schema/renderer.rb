@@ -18,7 +18,7 @@ class Jbuilder::Schema::Renderer
     normalize(render(...)).to_json
   end
 
-  def render(object = nil, title: nil, description: nil, assigns: nil, **options)
+  def render(object = nil, title: nil, description: nil, assigns: nil, scope: nil **options)
     @view_renderer.assign assigns if assigns
 
     partial_path = %i[to_partial_path_for_jbuilder_schema to_partial_path].map { object.public_send(_1) if object.respond_to?(_1) }.compact.first
@@ -35,7 +35,7 @@ class Jbuilder::Schema::Renderer
 
     options[:locals] ||= {}
     options[:locals].merge! @default_locals if @default_locals
-    options[:locals][:__jbuilder_schema_options] = {json: json, object: object, title: title, description: description}
+    options[:locals][:__jbuilder_schema_options] = {json: json, object: object, title: title, description: description, scope: scope}
 
     @view_renderer.render(options).then do |result|
       result.respond_to?(:unwrap_target!) ? result.unwrap_target! : result
